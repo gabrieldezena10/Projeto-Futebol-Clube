@@ -16,7 +16,6 @@ module.exports = {
       role: {
         allowNull: false,
         type: Sequelize.STRING,
-        defaultValue: 'admin'
       },
       email: {
         type: Sequelize.STRING,
