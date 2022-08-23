@@ -11,7 +11,7 @@ class ErrorHandler {
     this.errorDefault = errorDefault;
   }
 
-  errorHandler(err: Error, req: Request, res: Response, next: NextFunction) {
+  errorHandler = (err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof CustomError) {
       res.status(err.status).json({ message: err.message });
 
@@ -20,9 +20,9 @@ class ErrorHandler {
     res.status(this.errorDefault).json({ message: err.message });
 
     return next();
-  }
+  };
 }
 
-const middlewareError = new ErrorHandler();
+const errorMiddleware = new ErrorHandler();
 
-export default middlewareError;
+export default errorMiddleware;

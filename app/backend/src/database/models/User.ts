@@ -36,6 +36,6 @@ UserModel.init({
   sequelize: db,
   modelName: 'users',
   timestamps: false,
-})
+});
 
 export default UserModel;
