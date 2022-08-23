@@ -6,8 +6,6 @@ COPY package* ./
 
 RUN npm install
 
-COPY . .
-
-RUN npx tsc
+COPY . ./
 
 CMD [ "npm", "start" ]
