@@ -1,5 +1,5 @@
 import ILogin from '../interfaces/ILogin';
-import Jwt from '../utils/jwtService';
+import Jwt from '../utils/jwt';
 import UserModel from '../database/models/User';
 import CustomError from '../utils/customError';
 import HTTP_STATUS from '../utils/httpStatus';
