@@ -11,7 +11,7 @@ export default class LoginService {
       throw new CustomError(HTTP_STATUS.BAD_REQUEST, 'All fields must be filled');
     }
 
-    const registeredUser = await UserModel.findOne({ where: { email: login.email } });
+    const registeredUser = await UserModel.findOne({ where: { email: login.email } }) as UserModel;
 
     if (!registeredUser) {
       throw new CustomError(HTTP_STATUS.UNAUTHORIZED, 'Incorrect email or password');
@@ -22,7 +22,7 @@ export default class LoginService {
   }
 
   static async Validation(token: string | undefined) {
-    if (!token) throw new CustomError(400, 'Token not found');
+    if (!token) throw new CustomError(HTTP_STATUS.BAD_REQUEST, 'Token not found');
     const user = Jwt.validateToken(token) as ILogin;
     const findUser = await UserModel.findOne({ where: { email: user.email } }) as UserModel;
     return findUser.role;
