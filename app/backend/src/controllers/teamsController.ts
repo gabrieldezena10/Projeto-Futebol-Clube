@@ -7,4 +7,10 @@ export default class TeamsController {
     const data = await TeamsService.getAll();
     return res.status(HTTP_STATUS.OK).json(data);
   }
+
+  static async findByTeam(req: Request, res: Response) {
+    const { id } = req.params;
+    const data = await TeamsService.findByTeam(id);
+    return res.status(HTTP_STATUS.OK).json(data);
+  }
 }
