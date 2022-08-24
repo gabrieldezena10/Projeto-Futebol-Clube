@@ -23,7 +23,7 @@ export default class LoginService {
 
   static async Validation(token: string | undefined) {
     if (!token) throw new CustomError(400, 'Token not found');
-    const user = await Jwt.validateToken(token) as ILogin;
+    const user = Jwt.validateToken(token) as ILogin;
     const findUser = await UserModel.findOne({ where: { email: user.email } }) as UserModel;
     return findUser.role;
   }
