@@ -24,7 +24,7 @@ export default class Jwt {
       const validToken = jwt.verify(token, SECRET);
       return validToken;
     } catch (error) {
-      throw new CustomError(HTTP_STATUS.UNAUTHORIZED, 'Invalid Token');
+      throw new CustomError(HTTP_STATUS.UNAUTHORIZED, 'Token must be a valid token');
     }
   }
 }
