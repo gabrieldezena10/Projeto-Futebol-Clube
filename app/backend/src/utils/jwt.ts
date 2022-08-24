@@ -18,11 +18,10 @@ export default class Jwt {
     return token;
   }
 
-  static async validateToken(token: string) {
-    const SECRET = process.env.JWT_SECRET as string;
-
+  static async validateToken(token: string | undefined) {
     try {
-      const validToken = jwt.verify(token, SECRET);
+      if (!token) throw new CustomError(HTTP_STATUS.UNAUTHORIZED, 'Token not found');
+      const validToken = jwt.verify(token, process.env.JWT_SECRET || 'jwt_secret');
       return validToken;
     } catch (error) {
       throw new CustomError(HTTP_STATUS.UNAUTHORIZED, 'Invalid Token');
