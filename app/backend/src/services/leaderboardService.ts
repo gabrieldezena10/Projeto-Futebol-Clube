@@ -1,7 +1,8 @@
 import FormatHomeLeaderboard from '../utils/formatHomeLeaderboard';
 import MatchesModel from '../database/models/Matches';
 import TeamModel from '../database/models/Teams';
-import { IRawHomeMatchesLeaderboard } from '../interfaces/ILeaderboard';
+import { IRawAwayMatchesLeaderboard, IRawHomeMatchesLeaderboard } from '../interfaces/ILeaderboard';
+import FormatAwayLeaderboard from '../utils/formatAwayLeaderboard';
 
 export default class LeaderboardService {
   static async getHomeLeaderboard() {
@@ -23,7 +24,12 @@ export default class LeaderboardService {
       include: [
         { model: MatchesModel, as: 'awayMatches', where: { inProgress: false } },
       ],
+    }) as IRawAwayMatchesLeaderboard[];
+    const randomMatches = teams.map(({ teamName, awayMatches }) => {
+      const data = FormatAwayLeaderboard.awayLeaderboard(teamName, awayMatches);
+      return data;
     });
-    return teams;
+    const sortedMatches = FormatHomeLeaderboard.orderLeaderboard(randomMatches);
+    return sortedMatches;
   }
 }
