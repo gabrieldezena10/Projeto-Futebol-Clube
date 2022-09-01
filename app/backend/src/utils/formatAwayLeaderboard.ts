@@ -1,7 +1,7 @@
 import { IFinalLeaderBoard, IMatchesLeaderboard } from '../interfaces/ILeaderboard';
 
 export default class FormatAwayLeaderboard {
-  private static getVictories = (awayMatches: IMatchesLeaderboard[]) => {
+  static getVictories = (awayMatches: IMatchesLeaderboard[]) => {
     const totalWins = awayMatches.reduce((acc: number, e: IMatchesLeaderboard) => {
       if (e.awayTeamGoals > e.homeTeamGoals) {
         return acc + 1;
@@ -11,7 +11,7 @@ export default class FormatAwayLeaderboard {
     return totalWins;
   };
 
-  private static getDraws = (awayMatches: IMatchesLeaderboard[]) => {
+  static getDraws = (awayMatches: IMatchesLeaderboard[]) => {
     const drawsCount = awayMatches.reduce((acc: number, e: IMatchesLeaderboard) => {
       if (e.awayTeamGoals === e.homeTeamGoals) {
         return acc + 1;
@@ -21,7 +21,7 @@ export default class FormatAwayLeaderboard {
     return drawsCount;
   };
 
-  private static getLosses = (awayMatches: IMatchesLeaderboard[]) => {
+  static getLosses = (awayMatches: IMatchesLeaderboard[]) => {
     const lossesCount = awayMatches.reduce((acc: number, e: IMatchesLeaderboard) => {
       if (e.awayTeamGoals < e.homeTeamGoals) {
         return acc + 1;
@@ -31,31 +31,31 @@ export default class FormatAwayLeaderboard {
     return lossesCount;
   };
 
-  private static getPoints = (awayMatches: IMatchesLeaderboard[]) => {
+  static getPoints = (awayMatches: IMatchesLeaderboard[]) => {
     const winPoints = this.getVictories(awayMatches);
     const drawPopints = this.getDraws(awayMatches);
     const points = winPoints * 3 + drawPopints;
     return points;
   };
 
-  private static getGoalsInFavor = (awayMatches: IMatchesLeaderboard[]) => {
+  static getGoalsInFavor = (awayMatches: IMatchesLeaderboard[]) => {
     const goals = awayMatches.reduce((acc: number, e: IMatchesLeaderboard) =>
       acc + e.awayTeamGoals, 0);
     return goals;
   };
 
-  private static getGoalsOwn = (awayMatches: IMatchesLeaderboard[]) => {
+  static getGoalsOwn = (awayMatches: IMatchesLeaderboard[]) => {
     const goals = awayMatches.reduce((acc: number, e: IMatchesLeaderboard) =>
       acc + e.homeTeamGoals, 0);
     return goals;
   };
 
-  private static getGoalsBalance = (awayMatches: IMatchesLeaderboard[]) => {
+  static getGoalsBalance = (awayMatches: IMatchesLeaderboard[]) => {
     const balance = this.getGoalsInFavor(awayMatches) - this.getGoalsOwn(awayMatches);
     return balance;
   };
 
-  private static getEfficiency = (awayMatches: IMatchesLeaderboard[]) => {
+  static getEfficiency = (awayMatches: IMatchesLeaderboard[]) => {
     const result = (this.getPoints(awayMatches) / (awayMatches.length * 3)) * 100;
     return Number(result.toFixed(2));
   };

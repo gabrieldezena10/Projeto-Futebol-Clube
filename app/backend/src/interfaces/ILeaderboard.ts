@@ -26,6 +26,27 @@ export interface IRawAwayMatchesLeaderboard extends TeamModel{
   }[];
 }
 
+export interface IRawMatchesLeaderboard extends TeamModel{
+  id: number;
+  teamName: string;
+  homeMatches: {
+    id: number;
+    homeTeam: number;
+    homeTeamGoals: number;
+    awayTeam: number;
+    awayTeamGoals: number;
+    inProgress: boolean;
+  }[];
+  awayMatches: {
+    id: number;
+    homeTeam: number;
+    homeTeamGoals: number;
+    awayTeam: number;
+    awayTeamGoals: number;
+    inProgress: boolean;
+  }[];
+}
+
 export interface IMatchesLeaderboard {
   id: number;
   homeTeam: number;
